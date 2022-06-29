@@ -1,0 +1,62 @@
+unit Unit3;
+
+{$mode ObjFPC}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls;
+
+type
+
+  { TMelodia }
+
+  TMelodia = class(TForm)
+    Button1vibor: TButton;
+    ViborMelodii: TLabel;
+    Panel1: TPanel;
+    RadioSch: TRadioButton;
+    RadioArm: TRadioButton;
+    RadioReka: TRadioButton;
+    procedure Button1viborClick(Sender: TObject);
+    procedure RadioSchClick(Sender: TObject);
+    procedure RadioArmClick(Sender: TObject);
+    procedure RadioRekaClick(Sender: TObject);
+  private
+
+  public
+
+  end;
+
+var
+  Melodia: TMelodia;
+
+implementation
+   uses Unit1,Unit2,MMSystem;
+{$R *.lfm}
+
+   { TMelodia }
+
+procedure TMelodia.RadioSchClick(Sender: TObject);
+begin
+     sndPlaySound('muz.wav', snd_Async);
+end;
+
+procedure TMelodia.RadioArmClick(Sender: TObject);
+begin
+      sndPlaySound('armrad.wav', snd_Async);
+end;
+
+procedure TMelodia.RadioRekaClick(Sender: TObject);
+begin
+      sndPlaySound('reka.wav', snd_Async);
+end;
+
+procedure TMelodia.Button1viborClick(Sender: TObject);
+begin
+  PlaySound(Nil,0,0);
+  close;
+end;
+
+end.
+            
