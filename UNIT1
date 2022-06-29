@@ -1,0 +1,110 @@
+unit Unit1;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  MaskEdit, EditBtn, Spin, Interfaces;
+
+type
+
+  { TForm1vremya }
+
+  TForm1vremya = class(TForm)
+    ButtonSong: TButton;
+    EditMesssage: TEdit;
+    LabelMessage: TLabel;
+    sbros: TButton;
+    VvodTimee: TTimeEdit;
+    zapusk: TButton;
+    LabelVremya: TLabel;
+    vremya: TLabel;
+    datta: TLabel;
+    Timer1: TTimer;
+    procedure ButtonSongClick(Sender: TObject);
+    procedure sbrosClick(Sender: TObject);
+    procedure zapuskClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+
+  public
+
+  end;
+
+var
+  Form1vremya: TForm1vremya;
+  todayTime: TDateTime;
+  todayDate: TDateTime;
+
+implementation
+uses Unit2,Unit3;
+
+{$R *.lfm}
+
+{ TForm1vremya }
+
+procedure TForm1vremya.FormCreate(Sender: TObject);
+begin
+  todayTime:= Time;
+  todayDate:= Date;
+
+  vremya.Caption:=TimeToStr(todayTime);
+  datta.Caption:=DateToStr(todayDate);
+end;
+
+procedure TForm1vremya.zapuskClick(Sender: TObject);
+
+begin
+  Zvuk.EditMessage.text:=form1vremya.EditMesssage.Text;
+  if form1vremya.EditMesssage.Text= '' then
+  Zvuk.EditMessage.text:='Пора в школу!!!';
+
+  if VvodTimee.text = '' then  begin
+  Application.Title := 'Будильник';
+  showMessage('Введите время!');
+  end;
+end;
+
+procedure TForm1vremya.sbrosClick(Sender: TObject);
+begin
+  VvodTimee.text:='';
+  EditMesssage.text:='';
+end;
+
+
+
+procedure TForm1vremya.ButtonSongClick(Sender: TObject);
+begin
+   Melodia.Show;
+end;
+
+
+
+procedure TForm1vremya.Timer1Timer(Sender: TObject);
+var all: boolean;  formattedDate: string;
+begin
+  todayTime:= Time;
+  todayDate:= Date;
+  datta.Caption:=DateToStr(todayDate);
+
+  vremya.caption:=  TimeToStr(todayTime);
+  DateTimeToString(formattedDate, 't', todayTime);
+
+  all:= true;
+  begin
+    if  (VvodTimee.text <> formattedDate) then all:= false;
+  end;
+
+  if all= true then
+  begin
+  Timer1.Enabled:=false;
+  Form1vremya.Hide;
+  Zvuk.show;
+  end;
+end;
+
+end.
+             
