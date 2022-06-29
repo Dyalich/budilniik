@@ -1,27 +1,21 @@
-unit Unit3;
+unit Unit2;
 
 {$mode ObjFPC}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls;
 
 type
 
-  { TMelodia }
+  { TZvuk }
 
-  TMelodia = class(TForm)
-    Button1vibor: TButton;
-    ViborMelodii: TLabel;
-    Panel1: TPanel;
-    RadioSch: TRadioButton;
-    RadioArm: TRadioButton;
-    RadioReka: TRadioButton;
-    procedure Button1viborClick(Sender: TObject);
-    procedure RadioSchClick(Sender: TObject);
-    procedure RadioArmClick(Sender: TObject);
-    procedure RadioRekaClick(Sender: TObject);
+  TZvuk = class(TForm)
+    EditMessage: TEdit;
+    Vse: TButton;
+    procedure FormActivate(Sender: TObject);
+    procedure VseClick(Sender: TObject);
   private
 
   public
@@ -29,34 +23,36 @@ type
   end;
 
 var
-  Melodia: TMelodia;
+  Zvuk: TZvuk;
 
 implementation
-   uses Unit1,Unit2,MMSystem;
+uses Unit1,Unit3, MMSystem;
+
 {$R *.lfm}
 
-   { TMelodia }
+{ TZvuk }
 
-procedure TMelodia.RadioSchClick(Sender: TObject);
+procedure TZvuk.FormActivate(Sender: TObject);
 begin
-     sndPlaySound('muz.wav', snd_Async);
+  if Melodia.RadioSch.Checked then
+  sndPlaySound('muz.wav', snd_Async or snd_loop)
+
+  else  if Melodia.RadioArm.Checked then
+  sndPlaySound('armrad.wav', snd_Async or snd_loop)
+
+  else if Melodia.RadioReka.Checked then
+  sndPlaySound('reka.wav', snd_Async or snd_loop)
 end;
 
-procedure TMelodia.RadioArmClick(Sender: TObject);
+procedure TZvuk.VseClick(Sender: TObject);
 begin
-      sndPlaySound('armrad.wav', snd_Async);
+       PlaySound(Nil,0,0);
+       close;
+       Form1vremya.close;
 end;
 
-procedure TMelodia.RadioRekaClick(Sender: TObject);
-begin
-      sndPlaySound('reka.wav', snd_Async);
-end;
+{ TZvuk }
 
-procedure TMelodia.Button1viborClick(Sender: TObject);
-begin
-  PlaySound(Nil,0,0);
-  close;
-end;
 
-end.
-                       
+
+end.                         
